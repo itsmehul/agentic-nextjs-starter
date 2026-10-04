@@ -8,6 +8,8 @@ import { cn } from "@/shared/lib/utils";
 const googleSans = Google_Sans({
   subsets: ["latin"],
   variable: "--font-google-sans",
+  adjustFontFallback: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 const montserrat = Montserrat({
