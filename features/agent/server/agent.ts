@@ -8,6 +8,7 @@ import {
   firstModelName,
   openRouterChat,
 } from "./models";
+import { store } from "./store";
 import { calculator, searchWeb } from "./tools";
 
 /**
@@ -21,8 +22,9 @@ import { calculator, searchWeb } from "./tools";
  * cards.
  *
  * Models are OpenRouter chat-completions models built by `openRouterChat`
- * (see `./models`). Thread state is persisted by the Postgres checkpointer;
- * thread ownership lives in the `agent_thread` table.
+ * (see `./models`). Thread state is persisted by the Postgres checkpointer,
+ * cross-thread memory by the Postgres store; thread ownership lives in the
+ * `agent_thread` table.
  */
 const coordinatorModel = openRouterChat(
   firstModelName(DEFAULT_OPENROUTER_MODEL, process.env.OPENROUTER_MODEL),
@@ -37,11 +39,12 @@ const subagentModel = openRouterChat(
   )
 );
 
-export { checkpointer };
+export { checkpointer, store };
 
 export const agent = createDeepAgent({
   model: coordinatorModel,
   checkpointer,
+  store,
   subagents: [
     {
       name: "researcher",
