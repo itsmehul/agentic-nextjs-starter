@@ -4,7 +4,7 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 
 import { HumanMessage } from "@langchain/core/messages";
 import { useStreamContext } from "@langchain/react";
-import { ArrowUpIcon } from "lucide-react";
+import { SendIcon } from "@/components/icons";
 
 import {
   Breadcrumb,
@@ -160,7 +160,7 @@ export function Chat({
             size="icon"
             type="submit"
           >
-            <ArrowUpIcon />
+            <SendIcon />
           </Button>
         </form>
       </div>

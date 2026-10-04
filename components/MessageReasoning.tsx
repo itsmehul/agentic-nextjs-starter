@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { BrainIcon, ChevronRightIcon } from "lucide-react";
+import { BrainIcon, ChevronRightIcon } from "@/components/icons";
 
 import {
   Collapsible,

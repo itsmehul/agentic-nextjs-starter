@@ -14,7 +14,7 @@ import {
   ChevronDownIcon,
   ExternalLinkIcon,
   MessageCircleIcon,
-} from "lucide-react";
+} from "@/components/icons";
 import type { ComponentProps } from "react";
 import { createContext, useContext, useMemo } from "react";
 

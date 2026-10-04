@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
+import { Geist_Mono, Google_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
+import { getIconFontHref } from "@/components/icons";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const googleSans = Google_Sans({
+  subsets: ["latin"],
+  variable: "--font-google-sans",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -27,10 +36,12 @@ export default function RootLayout({
       lang="en"
       className={cn(
         "dark h-full font-sans antialiased",
-        inter.variable,
+        googleSans.variable,
+        montserrat.variable,
         geistMono.variable
       )}
     >
+      <link href={getIconFontHref()} precedence="default" rel="stylesheet" />
       <body className="min-h-full">
         <TooltipProvider>{children}</TooltipProvider>
       </body>

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import type { SubagentDiscoverySnapshot } from "@langchain/langgraph-sdk/stream";
 import { useStreamContext } from "@langchain/react";
-import { CircleAlertIcon, SparklesIcon } from "lucide-react";
+import { CircleAlertIcon, SparklesIcon } from "@/components/icons";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {

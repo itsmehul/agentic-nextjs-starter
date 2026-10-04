@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { ChevronRightIcon, WrenchIcon } from "lucide-react";
+import { ChevronRightIcon, WrenchIcon } from "@/components/icons";
 
 import { Badge } from "@/components/ui/badge";
 import {

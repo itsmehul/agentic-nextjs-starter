@@ -11,7 +11,7 @@ import {
   FileIcon,
   FolderIcon,
   FolderOpenIcon,
-} from "lucide-react";
+} from "@/components/icons";
 import type { HTMLAttributes, ReactNode } from "react";
 import {
   createContext,

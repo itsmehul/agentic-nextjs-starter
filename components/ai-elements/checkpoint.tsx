@@ -8,9 +8,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import type { LucideProps } from "lucide-react";
-import { BookmarkIcon } from "lucide-react";
-import type { ComponentProps, HTMLAttributes } from "react";
+import type { IconProps } from "@/components/icons";
+import { BookmarkIcon } from "@/components/icons";
+import type { ComponentProps, HTMLAttributes, ReactNode } from "react";
 
 export type CheckpointProps = HTMLAttributes<HTMLDivElement>;
 
@@ -31,7 +31,7 @@ export const Checkpoint = ({
   </div>
 );
 
-export type CheckpointIconProps = LucideProps;
+export type CheckpointIconProps = IconProps & { children?: ReactNode };
 
 export const CheckpointIcon = ({
   className,
