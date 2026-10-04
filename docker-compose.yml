@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: deploy_model
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d deploy_model" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  migrate:
+    profiles: [ "app" ]
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_APP_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/deploy_model
+    command: [ "pnpm", "exec", "drizzle-kit", "migrate" ]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  app:
+    profiles: [ "app" ]
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_APP_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+    restart: unless-stopped
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/deploy_model
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
