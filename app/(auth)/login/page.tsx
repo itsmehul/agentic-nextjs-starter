@@ -1,10 +1,9 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { emailPasswordEnabled, googleEnabled } from "@/lib/auth";
-import { getSession } from "@/lib/auth/session";
+import { emailPasswordEnabled, getSession, googleEnabled } from "@/features/auth/server";
 
-import LoginClient from "./login-client";
+import { LoginClient } from "@/features/auth";
 
 export default async function Page() {
   if (await getSession()) {

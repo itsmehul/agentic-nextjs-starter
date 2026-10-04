@@ -1,6 +1,6 @@
-import { authErrorResponse, requireUser } from "@/lib/auth/session";
-import { requireAccessibleThread } from "@/lib/db/repository/agent-threads";
-import { deleteThread } from "@/lib/server/registry";
+import { authErrorResponse, requireUser } from "@/features/auth/server";
+import { requireAccessibleThread } from "@/features/threads/server";
+import { deleteThread } from "@/features/threads/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

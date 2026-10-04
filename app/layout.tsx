@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Google_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
-import { getIconFontHref } from "@/components/icons";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { getIconFontHref } from "@/shared/ui/icons";
+import { TooltipProvider } from "@/shared/ui/tooltip";
+import { cn } from "@/shared/lib/utils";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],

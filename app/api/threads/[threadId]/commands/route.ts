@@ -1,8 +1,8 @@
 import type { Command } from "@langchain/protocol";
 
-import { authErrorResponse, requireUser } from "@/lib/auth/session";
-import { requireAccessibleThread } from "@/lib/db/repository/agent-threads";
-import { getSession } from "@/lib/server/registry";
+import { authErrorResponse, requireUser } from "@/features/auth/server";
+import { requireAccessibleThread } from "@/features/threads/server";
+import { getSession } from "@/features/threads/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

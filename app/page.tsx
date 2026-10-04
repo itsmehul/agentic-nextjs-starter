@@ -1,13 +1,13 @@
 import { redirect } from "next/navigation";
 
-import { ChatApp } from "@/components/ChatApp";
-import { getSession } from "@/lib/auth/session";
+import { ChatApp } from "@/features/chat";
+import { getCurrentUser } from "@/features/auth/server";
 
 export default async function Home() {
-  const session = await getSession();
-  if (!session) {
+  const user = await getCurrentUser();
+  if (!user) {
     redirect("/login");
   }
 
-  return <ChatApp user={{ name: session.user.name, email: session.user.email }} />;
+  return <ChatApp user={user} />;
 }

@@ -1,14 +1,14 @@
-import { authErrorResponse, requireUser } from "@/lib/auth/session";
+import { authErrorResponse, requireUser } from "@/features/auth/server";
 import {
   ensureThreadOwnership,
   requireAccessibleThread,
-} from "@/lib/db/repository/agent-threads";
-import { getAgentGraph } from "@/lib/server/registry";
+} from "@/features/threads/server";
+import { getAgentGraph } from "@/features/threads/server";
 import {
   ThreadNotFoundError,
   getThreadState,
   updateThreadState,
-} from "@/lib/server/threads";
+} from "@/features/threads/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

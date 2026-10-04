@@ -69,11 +69,11 @@ flowchart TB
     STA["GET|POST /api/threads/:id/state"]
   end
 
-  subgraph server["lib/server"]
+  subgraph server["features/threads/server"]
     SRV["session · threads · registry"]
   end
 
-  subgraph agent["lib/agent"]
+  subgraph agent["features/agent/server"]
     AGT["createDeepAgent + checkpointer"]
   end
 
@@ -94,7 +94,7 @@ flowchart TB
 ## Production persistence
 
 Out of the box, the agent uses an in-memory `MemorySaver` checkpointer
-(`lib/agent/index.ts`) and a process-local session map (`lib/server/registry.ts`).
+(`features/agent/server/agent.ts`) and a process-local session map (`features/threads/server/registry.ts`).
 That works for local dev and single-instance servers, but on Vercel (serverless,
 multiple replicas) conversation state is **not durable** across cold starts or
 instances.
@@ -107,8 +107,8 @@ For production, swap in a [durable checkpointer](https://docs.langchain.com/oss/
 | `@langchain/langgraph-checkpoint-postgres` | Postgres (`PostgresSaver`) |
 | `@langchain/langgraph-checkpoint-sqlite`   | SQLite (`SqliteSaver`)     |
 
-Replace `MemorySaver` in `lib/agent/index.ts` and pass the new checkpointer to
-`createDeepAgent`. The route handlers and `lib/server/threads.ts` helpers stay
+Replace `MemorySaver` in `features/agent/server/agent.ts` and pass the new checkpointer to
+`createDeepAgent`. The route handlers and `features/threads/server/threads.ts` helpers stay
 the same.
 
 ### Redis on Vercel
@@ -130,7 +130,7 @@ const checkpointer = await RedisSaver.fromUrl(process.env.REDIS_URL!);
 Use the connection string your Redis provider exposes (Upstash provides both
 REST and Redis-protocol URLs — the checkpointer needs the Redis URL).
 
-You will also want a shared session/replay store in `lib/server/registry.ts` so
+You will also want a shared session/replay store in `features/threads/server/registry.ts` so
 SSE reconnection works across serverless invocations. The checkpointer swap is
 the main step for durable thread history; the session store is a separate
 concern for live-run replay.
@@ -156,14 +156,16 @@ pnpm lint    # eslint
 
 ## Project layout
 
-- `lib/agent/` — deep agent (`createDeepAgent`) with `researcher` and `math-whiz`
+- `features/agent/` — deep agent (`createDeepAgent`) with `researcher` and `math-whiz`
   subagents and mock tools. Marked `server-only`.
-- `lib/server/` — protocol server logic: `session.ts` (SSE runs),
+- `features/threads/server/` — protocol server logic: `session.ts` (SSE runs),
   `threads.ts` (checkpointer-backed state), `serialize.ts`, `registry.ts`.
 - `app/api/threads/` — Route Handlers for the protocol endpoints above.
-- `lib/chat/threads-client.ts` — browser thread bootstrap and sidebar helpers.
-- `components/` — chat UI (`ChatApp`, `Chat`, `MessageList`, `Subagents`,
+- `features/threads/client.ts` — browser thread bootstrap and sidebar helpers.
+- `features/chat/` — chat UI (`ChatApp`, `Chat`, `MessageThread`, `Subagents`,
   `ThreadHistory`, …).
+- `features/auth/` — Better Auth server, client, session guards, login UI.
+- `shared/` — shadcn and ai-elements components, Drizzle client, helpers.
 
 ## References
 

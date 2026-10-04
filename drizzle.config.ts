@@ -9,7 +9,7 @@ for (const file of [".env", ".env.local"]) {
 }
 
 export default defineConfig({
-  schema: "./lib/db/schema.ts",
+  schema: "./features/*/db/schema.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {

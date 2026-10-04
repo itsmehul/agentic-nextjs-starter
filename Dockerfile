@@ -27,6 +27,6 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.ts /app/tsconfig.json /app/drizzle.config.ts ./
 COPY --from=builder /app/drizzle ./drizzle
-COPY --from=builder /app/lib ./lib
+COPY --from=builder /app/features ./features
 EXPOSE 3000
 CMD ["pnpm", "exec", "next", "start", "-H", "0.0.0.0", "-p", "3000"]

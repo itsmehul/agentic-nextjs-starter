@@ -13,8 +13,8 @@ for (const file of [".env", ".env.local"]) {
 }
 
 // DATABASE_URL is read when the db module loads, so import it after env files.
-const { db, pool } = await import("@/lib/db");
-const { account, user } = await import("@/lib/db/schema");
+const { db, pool } = await import("@/shared/db");
+const { account, user } = await import("@/features/auth/db/schema");
 
 const name = await input({ message: "Name", default: "Dummy User" });
 const email = (

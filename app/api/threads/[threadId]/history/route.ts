@@ -1,7 +1,7 @@
-import { authErrorResponse, requireUser } from "@/lib/auth/session";
-import { requireAccessibleThread } from "@/lib/db/repository/agent-threads";
-import { getAgentGraph } from "@/lib/server/registry";
-import { ThreadNotFoundError, getThreadHistory } from "@/lib/server/threads";
+import { authErrorResponse, requireUser } from "@/features/auth/server";
+import { requireAccessibleThread } from "@/features/threads/server";
+import { getAgentGraph } from "@/features/threads/server";
+import { ThreadNotFoundError, getThreadHistory } from "@/features/threads/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

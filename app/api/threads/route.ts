@@ -1,7 +1,7 @@
-import { authErrorResponse, requireUser } from "@/lib/auth/session";
-import { listUserThreadIds } from "@/lib/db/repository/agent-threads";
-import { getAgentGraph } from "@/lib/server/registry";
-import { listThreads } from "@/lib/server/threads";
+import { authErrorResponse, requireUser } from "@/features/auth/server";
+import { listUserThreadIds } from "@/features/threads/server";
+import { getAgentGraph } from "@/features/threads/server";
+import { listThreads } from "@/features/threads/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
